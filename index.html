@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+</style>
+
+<head>
+<title> Become the better you </title>
+</head>
+
+<body>
+  <div id="header" style="
+    background-color:white;
+    height:60px;
+    width:350px;
+    position:absolute;
+    left:50px;
+    top:50px">
+
+    <label style="
+    color:black"
+    >Has your boss demanded you "think outside the box" more often?
+    Use your arrow keys to move your thoughts.
+    When you feel comfortable: thick the box!</label>
+  </div>
+
+  <div id="cage" style="
+    background-color:blue;
+    height:350px;
+    width:350px;
+    position:absolute;
+    left:50px;
+    top:150px">
+  </div>
+
+  <div id="block" style="
+    background-color:red;
+    height:50px;
+    width:50px;
+    position:absolute;
+    left:200px;
+    top:300px">
+  </div>
+
+  <div style="
+    position:absolute;
+    left:50px;
+    top:550px">
+    <input type="checkbox" onclick="checkbox()" id="checkbox">
+    <label>I want to think outside the box</label>
+  </div>
+</body>
+
+<script>
+function checkbox() {
+  var checkbox = document.getElementById("checkbox").checked
+  if (checkbox == false) {
+    document.getElementById('block').style.left = "200px"
+    document.getElementById('block').style.top = "300px"
+  }
+  console.log(checkbox)
+
+}
+
+function bordercheck(block_left_integer, block_top_integer) {
+  var cage_left_px = document.getElementById('cage').style.left
+  var cage_top_px = document.getElementById('cage').style.top
+  var cage_height_px = document.getElementById('cage').style.height
+  var cage_width_px = document.getElementById('cage').style.width
+
+  var cage_left_integer = parseInt(cage_left_px)
+  var cage_top_integer = parseInt(cage_top_px)
+  var cage_height_integer = parseInt(cage_height_px)
+  var cage_width_integer = parseInt(cage_width_px)
+
+  var cage_right_integer = cage_left_integer + cage_width_integer
+  var cage_bottom_integer = cage_top_integer + cage_height_integer
+
+  if (block_left_integer < cage_left_integer) {
+    console.log("Left border")
+    return true
+  } else if (block_left_integer >= cage_right_integer) {
+    console.log("Right border")
+    return true
+  } else if (block_top_integer < cage_top_integer) {
+    console.log("Top border")
+    return true
+  } else if (block_top_integer >= cage_bottom_integer) {
+    console.log("Bottom border")
+    return true
+  } else {
+    return false
+  }
+
+}
+
+document.onkeydown = function (event) {
+  var block_left_px = document.getElementById('block').style.left
+  var block_top_px = document.getElementById('block').style.top
+  block_left_integer = parseInt(block_left_px)
+  block_top_integer = parseInt(block_top_px)
+
+  if (event.key == "ArrowRight") {
+    block_left_integer += 50
+  }
+  if (event.key == "ArrowLeft") {
+    block_left_integer -= 50
+  }
+  if (event.key == "ArrowDown") {
+    block_top_integer += 50
+  }
+  if (event.key == "ArrowUp") {
+    block_top_integer -= 50
+  }
+
+  var border = bordercheck(block_left_integer, block_top_integer)
+  console.log(border, block_left_integer, block_top_integer)
+
+  var checkbox = document.getElementById("checkbox").checked
+
+  if (border == false || checkbox == true) {
+    block_left_newpx = block_left_integer + "px"
+    block_top_newpx = block_top_integer + "px"
+    document.getElementById('block').style.left = block_left_newpx
+    document.getElementById('block').style.top = block_top_newpx
+  }
+
+};
+</script>
+
+</html>
